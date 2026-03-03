@@ -17,6 +17,9 @@ const { title, description } = Astro.props;
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <slot />
-  </body>
+  <div style="padding:16px; font: 16px/1.4 system-ui; color:#b91c1c;">
+    TEST: layout is rendering
+  </div>
+  <slot />
+</body>
 </html>
