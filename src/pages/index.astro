@@ -1,0 +1,414 @@
+---
+// src/pages/index.astro
+const fullName = "Kęstutis Skrebė";
+const role = "Developer";
+
+const contact = {
+  location: "Vilnius, Lithuania",
+  phone: "+370 613 77 180",
+  email: "kestutis.julius@gmail.com",
+  linkedin: "https://www.linkedin.com/in/k-s-992b5a217",
+  github: "https://github.com/Kestutisjulius",
+};
+
+const quote = {
+  text:
+    "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.",
+  author: "Antoine de Saint-Exupery",
+};
+
+const experience = [
+  {
+    title: "IT Consultant",
+    company: "BNM Finance",
+    period: "October 2022 – November 2025",
+    highlights: ["Laravel", "RIVILE-GAMA", "Linux Debian admin", "Microsoft VFP9", "Java"],
+  },
+  {
+    title: "Owner",
+    company: 'JSC “KUR MES”, Vilnius',
+    period: "December 2014 – January 2021",
+    highlights: ["KODAK PREPS impositions", "Adobe InDesign layout", "PDF fixing (InDesign)"],
+  },
+];
+
+const education = [
+  {
+    title: "Software Engineering, Vilniaus kolegija (Higher education institution)",
+    period: "September 2024 – now (studying)",
+    details: ["Professional Bachelor of Computing"],
+  },
+  {
+    title: "PHP Programmer, Baltic Institute of Technology, Vilnius",
+    period: "March 2022 – August 2022",
+    details: ["PHP", "Laravel", "MySQL", "JavaScript", "React", "CSS/SCSS", "Bootstrap", "Tailwind"],
+  },
+  {
+    title: "Java Programmer, UAB Akademia SDA, Vilnius",
+    period: "December 2020 – August 2021",
+    details: ["Java", "Spring", "MSSQL", "TypeScript", "Angular"],
+  },
+  {
+    title: "Full Stack Programmer, VAEM, Vilnius",
+    period: "1996 – May 1999",
+    details: ["Incomplete bachelor’s degree"],
+  },
+];
+
+const tools = [
+  "Axure",
+  "AutoCAD",
+  "Corel Draw",
+  "Adobe Photoshop",
+  "MS Office",
+  "RIVILE-GAMA",
+  "Clockify API",
+  "MS SharePoint API",
+  "Debian Linux",
+];
+
+const languages = [
+  "Lithuanian (Native)",
+  "English (B2)",
+  "Russian (Fluent)",
+];
+
+const cvPdfPath = "/cv.pdf"; // place your PDF at: public/cv.pdf
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullName} — {role}</title>
+    <meta name="description" content={`${fullName} — ${role}. CV and portfolio.`} />
+    <meta name="theme-color" content="#0b1220" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <style>
+      :root{
+        --bg: #0b1220;
+        --panel: rgba(255,255,255,.06);
+        --panel2: rgba(255,255,255,.09);
+        --text: rgba(255,255,255,.92);
+        --muted: rgba(255,255,255,.72);
+        --muted2: rgba(255,255,255,.58);
+        --border: rgba(255,255,255,.14);
+        --accent: #7dd3fc;
+        --accent2: #a7f3d0;
+        --shadow: 0 10px 30px rgba(0,0,0,.35);
+        --radius: 18px;
+        --max: 980px;
+      }
+      *{ box-sizing: border-box; }
+      html,body{ height: 100%; }
+      body{
+        margin:0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+        background:
+          radial-gradient(1200px 800px at 10% 10%, rgba(125,211,252,.12), transparent 55%),
+          radial-gradient(900px 700px at 90% 20%, rgba(167,243,208,.10), transparent 50%),
+          radial-gradient(1000px 900px at 50% 90%, rgba(99,102,241,.10), transparent 60%),
+          var(--bg);
+        color: var(--text);
+        line-height: 1.45;
+      }
+      a{ color: inherit; text-decoration: none; }
+      a:hover{ text-decoration: underline; }
+      .wrap{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 60px; }
+      .topbar{
+        display:flex; gap: 12px; align-items:center; justify-content:space-between;
+        padding: 14px 16px; border: 1px solid var(--border);
+        background: rgba(255,255,255,.04);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(10px);
+      }
+      .brand{ display:flex; flex-direction:column; gap: 2px; }
+      .brand strong{ font-size: 18px; letter-spacing:.2px; }
+      .brand span{ color: var(--muted2); font-size: 13px; }
+      .links{ display:flex; gap: 10px; flex-wrap: wrap; justify-content:flex-end; }
+      .chip{
+        display:inline-flex; align-items:center; gap:8px;
+        border:1px solid var(--border);
+        background: rgba(255,255,255,.04);
+        padding: 8px 10px;
+        border-radius: 999px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .chip b{ color: var(--text); font-weight: 600; }
+      .hero{
+        margin-top: 18px;
+        padding: 24px 18px;
+        border: 1px solid var(--border);
+        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+      .hero h1{ margin: 0 0 6px; font-size: 34px; letter-spacing:.2px; }
+      .hero p{ margin: 0; color: var(--muted); }
+      .cta{ margin-top: 16px; display:flex; gap:10px; flex-wrap: wrap; }
+      .btn{
+        display:inline-flex; align-items:center; justify-content:center;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,.05);
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .btn.primary{
+        background: rgba(125,211,252,.15);
+        border-color: rgba(125,211,252,.35);
+      }
+      .grid{
+        margin-top: 18px;
+        display:grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      @media (min-width: 860px){
+        .grid{ grid-template-columns: 1.25fr .75fr; }
+      }
+      .card{
+        border: 1px solid var(--border);
+        background: var(--panel);
+        border-radius: var(--radius);
+        padding: 16px 16px 14px;
+        box-shadow: var(--shadow);
+      }
+      .card h2{
+        margin: 0 0 10px;
+        font-size: 16px;
+        letter-spacing:.2px;
+      }
+      .muted{ color: var(--muted); }
+      .muted2{ color: var(--muted2); }
+      .list{ margin: 0; padding-left: 16px; }
+      .list li{ margin: 6px 0; }
+      .item{
+        padding: 12px 12px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+        border-radius: 14px;
+        margin: 10px 0;
+      }
+      .item header{
+        display:flex; flex-direction:column; gap: 2px;
+      }
+      .item .title{ font-weight: 700; }
+      .item .meta{ font-size: 13px; color: var(--muted2); }
+      .badges{ display:flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+      .badge{
+        font-size: 12px;
+        padding: 6px 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.14);
+        background: rgba(255,255,255,.04);
+        color: var(--muted);
+      }
+      blockquote{
+        margin: 0;
+        padding: 12px 14px;
+        border-left: 3px solid rgba(125,211,252,.5);
+        background: rgba(125,211,252,.06);
+        border-radius: 12px;
+      }
+      footer{
+        margin-top: 18px;
+        color: var(--muted2);
+        font-size: 13px;
+        text-align: center;
+      }
+      .smallline{ font-size: 13px; color: var(--muted); margin-top: 10px; }
+      .modal{
+        width: min(1000px, 95vw);
+        height: min(88vh, 900px);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 0;
+        background: #0a1020;
+        color: var(--text);
+      }
+      .modal::backdrop{
+        background: rgba(0,0,0,.72);
+        backdrop-filter: blur(2px);
+      }
+      .modal-head{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(255,255,255,.03);
+      }
+      .modal-head strong{
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .modal-close{
+        cursor: pointer;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,.06);
+        color: var(--text);
+        border-radius: 10px;
+        padding: 7px 10px;
+        font-size: 13px;
+      }
+      .modal-body{
+        height: calc(100% - 50px);
+      }
+      .cv-frame{
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <nav class="topbar" aria-label="Top navigation">
+        <div class="brand">
+          <strong>{fullName}</strong>
+          <span>{role} • {contact.location}</span>
+        </div>
+
+        <div class="links">
+          <a class="chip" href={`mailto:${contact.email}`}><b>Email</b><span class="muted2">{contact.email}</span></a>
+          <a class="chip" href={contact.linkedin} target="_blank" rel="noreferrer"><b>LinkedIn</b><span class="muted2">/in/k-s-992b5a217</span></a>
+          <a class="chip" href={contact.github} target="_blank" rel="noreferrer"><b>GitHub</b><span class="muted2">Kestutisjulius</span></a>
+        </div>
+      </nav>
+
+      <section class="hero">
+        <h1>{fullName}</h1>
+        <p class="muted">
+          {role}. Focus: Laravel / Java / Linux administration / business systems integrations.
+        </p>
+
+        <div class="cta">
+          <button id="openCvBtn" class="btn primary" type="button">Open CV (PDF)</button>
+          <a class="btn" href={`mailto:${contact.email}`}>Contact</a>
+          <a class="btn" href={contact.github} target="_blank" rel="noreferrer">View GitHub</a>
+        </div>
+
+        <div class="smallline">
+          Phone: <a href={`tel:${contact.phone.replaceAll(" ", "")}`}>{contact.phone}</a>
+        </div>
+      </section>
+
+      <div class="grid">
+        <section class="card">
+          <h2>Experience</h2>
+
+          {experience.map((job) => (
+            <article class="item">
+              <header>
+                <div class="title">{job.title} — {job.company}</div>
+                <div class="meta">{job.period}</div>
+              </header>
+              <div class="badges">
+                {job.highlights.map((h) => <span class="badge">{h}</span>)}
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <aside class="card">
+          <h2>Profile</h2>
+          <blockquote>
+            <div class="muted">{quote.text}</div>
+            <div class="muted2" style="margin-top:8px;">— {quote.author}</div>
+          </blockquote>
+
+          <div style="height:12px;"></div>
+
+          <h2>Tools / Programs</h2>
+          <div class="badges">
+            {tools.map((t) => <span class="badge">{t}</span>)}
+          </div>
+
+          <div style="height:12px;"></div>
+
+          <h2>Languages</h2>
+          <div class="badges">
+            {languages.map((l) => <span class="badge">{l}</span>)}
+          </div>
+
+          <div style="height:12px;"></div>
+
+          <h2>Education</h2>
+          {education.map((e) => (
+            <div class="item">
+              <div class="title">{e.title}</div>
+              <div class="meta">{e.period}</div>
+              <ul class="list muted" style="margin-top:8px;">
+                {e.details.map((d) => <li>{d}</li>)}
+              </ul>
+            </div>
+          ))}
+        </aside>
+      </div>
+
+      <footer>
+        © {new Date().getFullYear()} {fullName} • Built with Astro • <a href={contact.github} target="_blank" rel="noreferrer">GitHub</a>
+      </footer>
+    </div>
+
+    <dialog id="cvModal" class="modal" aria-label="CV preview">
+      <div class="modal-head">
+        <strong>{fullName} CV</strong>
+        <button id="closeCvBtn" class="modal-close" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <iframe class="cv-frame" src={cvPdfPath} title="CV PDF preview"></iframe>
+      </div>
+    </dialog>
+
+    <script>
+      const openBtn = document.getElementById("openCvBtn");
+      const closeBtn = document.getElementById("closeCvBtn");
+      const modal = document.getElementById("cvModal");
+      const frame = modal?.querySelector(".cv-frame");
+      const cvPath = frame?.getAttribute("src") || "/cv.pdf";
+
+      if (openBtn && closeBtn && modal) {
+        openBtn.addEventListener("click", () => {
+          if (typeof modal.showModal === "function") {
+            modal.showModal();
+            return;
+          }
+
+          window.open(cvPath, "_blank", "noopener,noreferrer");
+        });
+
+        closeBtn.addEventListener("click", () => modal.close());
+
+        modal.addEventListener("close", () => {
+          openBtn.focus();
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && modal.open) {
+            modal.close();
+          }
+        });
+
+        modal.addEventListener("click", (event) => {
+          const rect = modal.getBoundingClientRect();
+          const outside =
+            event.clientX < rect.left ||
+            event.clientX > rect.right ||
+            event.clientY < rect.top ||
+            event.clientY > rect.bottom;
+          if (outside) modal.close();
+        });
+      }
+    </script>
+  </body>
+</html>
