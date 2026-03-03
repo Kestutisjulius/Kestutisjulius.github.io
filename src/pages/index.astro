@@ -1,110 +1,200 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const profile = {
-  name: "Kęstutis Skrebė",
-  role: "Developer (Laravel / Java / Linux)",
+const fullName = "Kęstutis Skrebė";
+const role = "Developer";
+
+const contact = {
   location: "Vilnius, Lithuania",
-  email: "kestutis.julius@gmail.com",
-  github: "https://github.com/Kestutisjulius",
-  linkedin: "https://www.linkedin.com/in/k-s-992b5a217",
   phone: "+370 613 77 180",
-  cvPdf: "/cv.pdf",
+  email: "kestutis.julius@gmail.com",
+  linkedin: "https://www.linkedin.com/in/k-s-992b5a217",
+  github: "https://github.com/Kestutisjulius",
 };
 
-const skills = [
-  "Laravel / PHP",
-  "Java (learning/practice)",
-  "REST API / Integrations",
-  "Linux administration (Debian/Ubuntu)",
-  "Git / GitHub",
-];
+const quote = {
+  text:
+    "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.",
+  author: "Antoine de Saint-Exupery",
+};
 
 const experience = [
   {
     title: "IT Consultant",
-    org: "BNM Finance",
-    period: "2022-10 – 2025-11",
-    desc: "Laravel sprendimai, verslo sistemų integracijos (RIVILE-GAMA), Linux administravimas, legacy sprendimų priežiūra.",
+    company: "BNM Finance",
+    period: "October 2022 - November 2025",
+    highlights: ["Laravel", "RIVILE-GAMA", "Linux Debian admin", "Microsoft VFP9", "Java"],
   },
   {
     title: "Owner",
-    org: 'JSC “KUR MES”, Vilnius',
-    period: "2014-12 – 2021-01",
-    desc: "Prepress, maketavimas ir paruošimas spaudai, PDF tvarkymas ir kokybės kontrolė.",
+    company: "JSC KUR MES, Vilnius",
+    period: "December 2014 - January 2021",
+    highlights: ["KODAK PREPS impositions", "Adobe InDesign layout", "PDF fixing (InDesign)"],
   },
 ];
 
 const education = [
   {
-    title: "Software Engineering (Professional Bachelor of Computing)",
-    org: "Vilniaus kolegija",
-    period: "2024-09 – now",
+    title: "Software Engineering, Vilniaus kolegija (Higher education institution)",
+    period: "September 2024 - now (studying)",
+    details: ["Professional Bachelor of Computing"],
   },
   {
-    title: "PHP Programmer",
-    org: "Baltic Institute of Technology",
-    period: "2022-03 – 2022-08",
+    title: "PHP Programmer, Baltic Institute of Technology, Vilnius",
+    period: "March 2022 - August 2022",
+    details: ["PHP", "Laravel", "MySQL", "JavaScript", "React", "CSS/SCSS", "Bootstrap", "Tailwind"],
   },
   {
-    title: "Java Programmer",
-    org: "UAB Akademia SDA",
-    period: "2020-12 – 2021-08",
+    title: "Java Programmer, UAB Akademia SDA, Vilnius",
+    period: "December 2020 - August 2021",
+    details: ["Java", "Spring", "MSSQL", "TypeScript", "Angular"],
+  },
+  {
+    title: "Full Stack Programmer, VAEM, Vilnius",
+    period: "1996 - May 1999",
+    details: ["Incomplete bachelor's degree"],
   },
 ];
+
+const tools = [
+  "Axure",
+  "AutoCAD",
+  "Corel Draw",
+  "Adobe Photoshop",
+  "MS Office",
+  "RIVILE-GAMA",
+  "Clockify API",
+  "MS SharePoint API",
+  "Debian Linux",
+];
+
+const languages = [
+  "Lithuanian (Native)",
+  "English (B2)",
+  "Russian (Fluent)",
+];
+
+const cvPdfPath = "/cv.pdf";
 ---
 
 <BaseLayout
-  title={`${profile.name} | CV ir Portfolio`}
-  description="Kęstutis Skrebė — CV, patirtis ir projektai."
+  title={`${fullName} | CV and Portfolio`}
+  description={`${fullName} - ${role}. CV and portfolio.`}
 >
   <main class="page">
     <header class="hero">
       <p class="eyebrow">CV + Portfolio</p>
-      <h1>{profile.name}</h1>
-      <p class="lead">{profile.role}</p>
-      <p class="meta">{profile.location}</p>
+      <h1>{fullName}</h1>
+      <p class="lead">{role}</p>
+      <p class="meta">{contact.location}</p>
 
       <div class="actions">
-        <a class="btn primary" href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
-        <a class="btn ghost" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-        <a class="btn ghost" href={`mailto:${profile.email}`}>El. paštas</a>
-        <a class="btn ghost" href={profile.cvPdf} target="_blank" rel="noreferrer">CV (PDF)</a>
+        <button id="openCvBtn" class="btn primary" type="button">Open CV (PDF)</button>
+        <a class="btn ghost" href={contact.github} target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn ghost" href={contact.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="btn ghost" href={`mailto:${contact.email}`}>Email</a>
       </div>
 
-      <p class="meta" style="margin-top: 0.75rem;">
-        Tel.: <a href={`tel:${profile.phone.replaceAll(" ", "")}`}>{profile.phone}</a>
-        &nbsp;•&nbsp;
-        {profile.email}
+      <p class="meta">
+        Phone: <a href={`tel:${contact.phone.replaceAll(" ", "")}`}>{contact.phone}</a>
       </p>
     </header>
 
     <section class="panel">
-      <h2>Įgūdžiai</h2>
-      <ul class="chips">
-        {skills.map((s) => <li>{s}</li>)}
-      </ul>
+      <h2>Profile</h2>
+      <blockquote class="quote">
+        <p>{quote.text}</p>
+        <footer>- {quote.author}</footer>
+      </blockquote>
     </section>
 
-    <section class="panel">
-      <h2>Patirtis</h2>
-      {experience.map((job) => (
-        <div class="timeline-item">
-          <p class="timeline-title">{job.title}</p>
-          <p class="timeline-meta">{job.org} | {job.period}</p>
-          <p>{job.desc}</p>
-        </div>
-      ))}
-    </section>
+    <div class="split">
+      <section class="panel">
+        <h2>Experience</h2>
+        {experience.map((job) => (
+          <article class="timeline-item">
+            <p class="timeline-title">{job.title}</p>
+            <p class="timeline-meta">{job.company} | {job.period}</p>
+            <ul class="chips">
+              {job.highlights.map((item) => <li>{item}</li>)}
+            </ul>
+          </article>
+        ))}
+      </section>
+
+      <section class="panel">
+        <h2>Tools / Programs</h2>
+        <ul class="chips">
+          {tools.map((tool) => <li>{tool}</li>)}
+        </ul>
+
+        <h2 style="margin-top:1rem;">Languages</h2>
+        <ul class="chips">
+          {languages.map((lang) => <li>{lang}</li>)}
+        </ul>
+      </section>
+    </div>
 
     <section class="panel">
-      <h2>Išsilavinimas</h2>
-      {education.map((e) => (
-        <div class="timeline-item">
-          <p class="timeline-title">{e.title}</p>
-          <p class="timeline-meta">{e.org} | {e.period}</p>
-        </div>
+      <h2>Education</h2>
+      {education.map((item) => (
+        <article class="timeline-item">
+          <p class="timeline-title">{item.title}</p>
+          <p class="timeline-meta">{item.period}</p>
+          <ul class="chips">
+            {item.details.map((detail) => <li>{detail}</li>)}
+          </ul>
+        </article>
       ))}
     </section>
   </main>
+
+  <dialog id="cvModal" class="modal" aria-label="CV preview">
+    <div class="modal-head">
+      <strong>{fullName} CV</strong>
+      <button id="closeCvBtn" class="modal-close" type="button">Close</button>
+    </div>
+    <div class="modal-body">
+      <iframe class="cv-frame" src={cvPdfPath} title="CV PDF preview"></iframe>
+    </div>
+  </dialog>
+
+  <script>
+    const openBtn = document.getElementById("openCvBtn");
+    const closeBtn = document.getElementById("closeCvBtn");
+    const modal = document.getElementById("cvModal");
+    const frame = modal?.querySelector(".cv-frame");
+    const cvPath = frame?.getAttribute("src") || "/cv.pdf";
+
+    if (openBtn && closeBtn && modal) {
+      openBtn.addEventListener("click", () => {
+        if (typeof modal.showModal === "function") {
+          modal.showModal();
+          return;
+        }
+        window.open(cvPath, "_blank", "noopener,noreferrer");
+      });
+
+      closeBtn.addEventListener("click", () => modal.close());
+      modal.addEventListener("close", () => openBtn.focus());
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal.open) {
+          modal.close();
+        }
+      });
+
+      modal.addEventListener("click", (event) => {
+        const rect = modal.getBoundingClientRect();
+        const outside =
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom;
+        if (outside) {
+          modal.close();
+        }
+      });
+    }
+  </script>
 </BaseLayout>
