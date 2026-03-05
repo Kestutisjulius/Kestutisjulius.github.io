@@ -1,7 +1,5 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-
-const fullName = "Kęstutis Skrebė";
+const fullName = "K\u0119stutis Skreb\u0117";
 const role = "Developer";
 
 const contact = {
@@ -74,127 +72,238 @@ const languages = [
   "Russian (Fluent)",
 ];
 
+const projects = [
+  {
+    name: "ten.vizos.lt",
+    status: "Completed",
+    description: "Production website for visa related services with clear UX and practical user flow.",
+    stack: ["Astro", "HTML/CSS", "GitHub Pages"],
+    link: "https://ten.vizos.lt",
+  },
+];
+
+const academicWorks = [
+  {
+    title: "Mini Commune System",
+    link: "https://github.com/PI24SN-kestutis/komuna-mini",
+    language: "Java",
+  },
+  {
+    title: "Gauss Method III",
+    link: "https://github.com/PI24SN-kestutis/Gauso-III-examle",
+    language: "Java",
+  },
+  {
+    title: "Transfer Method",
+    link: "https://github.com/PI24SN-kestutis/perkelties-metodas",
+    language: "Java",
+  },
+  {
+    title: "AES Security",
+    link: "https://github.com/PI24SN-kestutis/AES-security",
+    language: "Java",
+  },
+  {
+    title: "Vigenere Cipher",
+    link: "https://github.com/PI24SN-kestutis/vigenere-cipher",
+    language: "Java",
+  },
+  {
+    title: "Jacobi-Zeidel Method",
+    link: "https://github.com/PI24SN-kestutis/jakobio-zeidelio",
+    language: "Java",
+  },
+  {
+    title: "Runge-Simpson Method",
+    link: "https://github.com/PI24SN-kestutis/runges-simpsono",
+    language: "Java",
+  },
+  {
+    title: "Bisection Method",
+    link: "https://github.com/PI24SN-kestutis/pusiaukirtos-metodas",
+    language: "Java",
+  },
+  {
+    title: "Algorithms Collection",
+    link: "https://github.com/PI24SN-kestutis/algoritmai",
+    language: "C++",
+  },
+];
+
 const cvPdfPath = "/cv.pdf";
 ---
 
-<BaseLayout
-  title={`${fullName} | CV and Portfolio`}
-  description={`${fullName} - ${role}. CV and portfolio.`}
->
-  <main class="page">
-    <header class="hero">
-      <p class="eyebrow">CV + Portfolio</p>
-      <h1>{fullName}</h1>
-      <p class="lead">{role}</p>
-      <p class="meta">{contact.location}</p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullName} - {role}</title>
+    <meta name="description" content={`${fullName} - ${role}. CV and portfolio.`} />
+    <meta name="theme-color" content="#0b1220" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
 
-      <div class="actions">
-        <button id="openCvBtn" class="btn primary" type="button">Open CV (PDF)</button>
-        <a class="btn ghost" href={contact.github} target="_blank" rel="noreferrer">GitHub</a>
-        <a class="btn ghost" href={contact.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-        <a class="btn ghost" href={`mailto:${contact.email}`}>Email</a>
+  <body>
+    <div class="wrap">
+      <nav class="topbar" aria-label="Top navigation">
+        <div class="brand">
+          <strong>{fullName}</strong>
+          <span>{role} | {contact.location}</span>
+        </div>
+
+        <div class="links">
+          <a class="chip" href={`mailto:${contact.email}`}><b>Email</b><span class="muted2">{contact.email}</span></a>
+          <a class="chip" href={contact.linkedin} target="_blank" rel="noreferrer"><b>LinkedIn</b><span class="muted2">/in/k-s-992b5a217</span></a>
+          <a class="chip" href={contact.github} target="_blank" rel="noreferrer"><b>GitHub</b><span class="muted2">Kestutisjulius</span></a>
+        </div>
+      </nav>
+
+      <section class="hero">
+        <h1>{fullName}</h1>
+        <p class="muted">
+          {role}. Focus: Laravel / Java / Linux administration / business systems integrations.
+        </p>
+
+        <div class="cta">
+          <button id="openCvBtn" class="btn primary" type="button">Open CV (PDF)</button>
+          <a class="btn" href={`mailto:${contact.email}`}>Contact</a>
+          <a class="btn" href={contact.github} target="_blank" rel="noreferrer">View GitHub</a>
+        </div>
+
+        <div class="smallline">
+          Phone: <a href={`tel:${contact.phone.replaceAll(" ", "")}`}>{contact.phone}</a>
+        </div>
+      </section>
+
+      <div class="grid">
+        <section class="card">
+          <h2>Experience</h2>
+
+          {experience.map((job) => (
+            <article class="item">
+              <header>
+                <div class="title">{job.title} - {job.company}</div>
+                <div class="meta">{job.period}</div>
+              </header>
+              <div class="badges">
+                {job.highlights.map((h) => <span class="badge">{h}</span>)}
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <aside class="card">
+          <h2>Profile</h2>
+          <blockquote>
+            <div class="muted">{quote.text}</div>
+            <div class="muted2" style="margin-top:8px;">- {quote.author}</div>
+          </blockquote>
+
+          <div style="height:12px;"></div>
+
+          <h2>Tools / Programs</h2>
+          <div class="badges">
+            {tools.map((t) => <span class="badge">{t}</span>)}
+          </div>
+
+          <div style="height:12px;"></div>
+
+          <h2>Languages</h2>
+          <div class="badges">
+            {languages.map((lang) => <span class="badge">{lang}</span>)}
+          </div>
+
+          <div style="height:12px;"></div>
+
+          <h2>Projects</h2>
+          {projects.map((p) => (
+            <div class="item">
+              <div class="title">{p.name}</div>
+              <div class="meta">{p.status}</div>
+              <ul class="list muted" style="margin-top:8px;">
+                <li>{p.description}</li>
+              </ul>
+              <div class="badges">
+                {p.stack.map((s) => <span class="badge">{s}</span>)}
+              </div>
+              <div class="project-link">
+                <a href={p.link} target="_blank" rel="noreferrer">Open project</a>
+              </div>
+            </div>
+          ))}
+
+          <div style="height:12px;"></div>
+
+          <h2>Academic Works</h2>
+          <div class="item">
+            <ul class="list muted academic-list">
+              {academicWorks.map((work) => (
+                <li class="academic-row">
+                  <a href={work.link} target="_blank" rel="noreferrer">{work.title}</a>
+                  <span class="badge">{work.language}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div style="height:12px;"></div>
+
+          <h2>Education</h2>
+          {education.map((e) => (
+            <div class="item">
+              <div class="title">{e.title}</div>
+              <div class="meta">{e.period}</div>
+              <ul class="list muted" style="margin-top:8px;">
+                {e.details.map((d) => <li>{d}</li>)}
+              </ul>
+            </div>
+          ))}
+        </aside>
       </div>
 
-      <p class="meta">
-        Phone: <a href={`tel:${contact.phone.replaceAll(" ", "")}`}>{contact.phone}</a>
-      </p>
-    </header>
-
-    <section class="panel">
-      <h2>Profile</h2>
-      <blockquote class="quote">
-        <p>{quote.text}</p>
-        <footer>- {quote.author}</footer>
-      </blockquote>
-    </section>
-
-    <div class="split">
-      <section class="panel">
-        <h2>Experience</h2>
-        {experience.map((job) => (
-          <article class="timeline-item">
-            <p class="timeline-title">{job.title}</p>
-            <p class="timeline-meta">{job.company} | {job.period}</p>
-            <ul class="chips">
-              {job.highlights.map((item) => <li>{item}</li>)}
-            </ul>
-          </article>
-        ))}
-      </section>
-
-      <section class="panel">
-        <h2>Tools / Programs</h2>
-        <ul class="chips">
-          {tools.map((tool) => <li>{tool}</li>)}
-        </ul>
-
-        <h2 style="margin-top:1rem;">Languages</h2>
-        <ul class="chips">
-          {languages.map((lang) => <li>{lang}</li>)}
-        </ul>
-      </section>
+      <footer>
+        Copyright {new Date().getFullYear()} {fullName} | Built with Astro | <a href={contact.github} target="_blank" rel="noreferrer">GitHub</a>
+      </footer>
     </div>
 
-    <section class="panel">
-      <h2>Education</h2>
-      {education.map((item) => (
-        <article class="timeline-item">
-          <p class="timeline-title">{item.title}</p>
-          <p class="timeline-meta">{item.period}</p>
-          <ul class="chips">
-            {item.details.map((detail) => <li>{detail}</li>)}
-          </ul>
-        </article>
-      ))}
-    </section>
-  </main>
+    <dialog id="cvModal" class="modal" aria-label="CV preview">
+      <div class="modal-head">
+        <strong>{fullName} CV</strong>
+        <button id="closeCvBtn" class="modal-close" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <iframe class="cv-frame" src={cvPdfPath} title="CV PDF preview"></iframe>
+      </div>
+    </dialog>
 
-  <dialog id="cvModal" class="modal" aria-label="CV preview">
-    <div class="modal-head">
-      <strong>{fullName} CV</strong>
-      <button id="closeCvBtn" class="modal-close" type="button">Close</button>
-    </div>
-    <div class="modal-body">
-      <iframe class="cv-frame" src={cvPdfPath} title="CV PDF preview"></iframe>
-    </div>
-  </dialog>
+    <script>
+      const openBtn = document.getElementById("openCvBtn");
+      const closeBtn = document.getElementById("closeCvBtn");
+      const modal = document.getElementById("cvModal");
+      const frame = modal?.querySelector(".cv-frame");
+      const cvPath = frame?.getAttribute("src") || "/cv.pdf";
 
-  <script>
-    const openBtn = document.getElementById("openCvBtn");
-    const closeBtn = document.getElementById("closeCvBtn");
-    const modal = document.getElementById("cvModal");
-    const frame = modal?.querySelector(".cv-frame");
-    const cvPath = frame?.getAttribute("src") || "/cv.pdf";
+      if (openBtn && closeBtn && modal) {
+        openBtn.addEventListener("click", () => {
+          if (typeof modal.showModal === "function") {
+            modal.showModal();
+            return;
+          }
 
-    if (openBtn && closeBtn && modal) {
-      openBtn.addEventListener("click", () => {
-        if (typeof modal.showModal === "function") {
-          modal.showModal();
-          return;
-        }
-        window.open(cvPath, "_blank", "noopener,noreferrer");
-      });
+          window.open(cvPath, "_blank", "noopener,noreferrer");
+        });
 
-      closeBtn.addEventListener("click", () => modal.close());
-      modal.addEventListener("close", () => openBtn.focus());
+        closeBtn.addEventListener("click", () => modal.close());
 
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && modal.open) {
-          modal.close();
-        }
-      });
-
-      modal.addEventListener("click", (event) => {
-        const rect = modal.getBoundingClientRect();
-        const outside =
-          event.clientX < rect.left ||
-          event.clientX > rect.right ||
-          event.clientY < rect.top ||
-          event.clientY > rect.bottom;
-        if (outside) {
-          modal.close();
-        }
-      });
-    }
-  </script>
-</BaseLayout>
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && modal.open) {
+            modal.close();
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
